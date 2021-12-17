@@ -2,10 +2,12 @@ package com.turbogoose.Flashcard.io.service;
 
 import com.turbogoose.Flashcard.io.entity.CardEntity;
 import com.turbogoose.Flashcard.io.entity.DeckEntity;
+import com.turbogoose.Flashcard.io.entity.RepetitionInfoEntity;
 import com.turbogoose.Flashcard.io.exception.CardNotFoundException;
 import com.turbogoose.Flashcard.io.exception.DeckNotFoundException;
 import com.turbogoose.Flashcard.io.repository.CardRepository;
 import com.turbogoose.Flashcard.io.repository.DeckRepository;
+import com.turbogoose.Flashcard.io.repository.RepetitionInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,11 @@ import java.time.LocalDateTime;
 @Service
 public class CardService {
     @Autowired
+    private DeckRepository deckRepository;
+    @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private DeckRepository deckRepository;
+    private RepetitionInfoRepository repetitionInfoRepository;
 
     public CardEntity createCard(CardEntity card, int deckId) throws DeckNotFoundException {
         DeckEntity deck = deckRepository.findById(deckId).orElseThrow(DeckNotFoundException::new);
@@ -40,8 +44,12 @@ public class CardService {
     }
 
     public CardEntity updateCardDuringLearning(int cardId, int quality) throws CardNotFoundException {
-        // repetition algorithm logic here...
-        return cardRepository.findById(cardId).orElseThrow(CardNotFoundException::new); // remove it
+        CardEntity card = cardRepository.findById(cardId).orElseThrow(CardNotFoundException::new);
+        RepetitionInfoEntity newRep = RepetitionAlgorithmService.calculate(card.getRepetition(), quality);
+        newRep.setCard(card);
+        RepetitionInfoEntity savedRep = repetitionInfoRepository.save(newRep);
+        card.setRepetition(savedRep);
+        return cardRepository.save(card);
     }
 
     public void deleteCard(int cardId) {

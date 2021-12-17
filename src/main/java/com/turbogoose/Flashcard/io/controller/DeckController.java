@@ -105,7 +105,7 @@ public class DeckController {
 
     @RequestMapping("/{deckId}/learn")
     @PutMapping
-    public ResponseEntity updateLearnedCard(@RequestBody LearningUpdateModel update) {
+    public ResponseEntity updateLearnedCard(@PathVariable String deckId, @RequestBody LearningUpdateModel update) {
         try {
             CardModel updatedCard = CardModel.toCardModel(
                     cardService.updateCardDuringLearning(update.getCardId(), update.getQuality())
@@ -145,7 +145,7 @@ public class DeckController {
 
     @RequestMapping("/{deckId}/cards/{cardId}")
     @GetMapping
-    public ResponseEntity getCard(@PathVariable int cardId) {
+    public ResponseEntity getCard(@PathVariable String deckId, @PathVariable int cardId) {
         try {
             CardModel card = CardModel.toCardModel(cardService.getCard(cardId));
             return ResponseEntity.ok(card);
@@ -157,7 +157,7 @@ public class DeckController {
 
     @RequestMapping("/{deckId}/cards/{cardId}")
     @PutMapping
-    public ResponseEntity updateCard(@RequestBody CardEntity update) {
+    public ResponseEntity updateCard(@PathVariable String deckId, @RequestBody CardEntity update) {
         try {
             CardModel card = CardModel.toCardModel(cardService.updateCard(update));
             return ResponseEntity.ok(card);
@@ -169,7 +169,7 @@ public class DeckController {
 
     @RequestMapping("/{deckId}/cards/{cardId}")
     @DeleteMapping
-    public ResponseEntity deleteCard(@PathVariable int cardId) {
+    public ResponseEntity deleteCard(@PathVariable String deckId, @PathVariable int cardId) {
         cardService.deleteCard(cardId);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
