@@ -39,6 +39,11 @@ public class CardService {
         return cardRepository.save(oldCard);
     }
 
+    public CardEntity updateCardDuringLearning(int cardId, int quality) throws CardNotFoundException {
+        // repetition algorithm logic here...
+        return cardRepository.findById(cardId).orElseThrow(CardNotFoundException::new); // remove it
+    }
+
     public void deleteCard(int cardId) {
         cardRepository.deleteById(cardId);
     }
