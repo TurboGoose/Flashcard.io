@@ -21,14 +21,18 @@ public class CardService {
     private CardRepository cardRepository;
     @Autowired
     private RepetitionInfoRepository repetitionInfoRepository;
+    @Autowired
+    private RepetitionInfoService repetitionInfoService;
 
     public CardEntity createCard(CardEntity card, int deckId) throws DeckNotFoundException {
         DeckEntity deck = deckRepository.findById(deckId).orElseThrow(DeckNotFoundException::new);
-        card.setCardId(null);
         card.setDeck(deck);
         card.setCreationTime(LocalDateTime.now());
         card.setLastModified(LocalDateTime.now());
-        return cardRepository.save(card);
+        CardEntity createdCard = cardRepository.save(card);
+        RepetitionInfoEntity rep = repetitionInfoService.createDefault(createdCard);
+        createdCard.setRepetition(rep);
+        return cardRepository.save(createdCard);
     }
 
     public CardEntity getCard(int cardId) throws CardNotFoundException {

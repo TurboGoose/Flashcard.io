@@ -5,14 +5,14 @@ import com.turbogoose.Flashcard.io.entity.RepetitionInfoEntity;
 import java.time.LocalDateTime;
 
 public class RepetitionAlgorithmService {
-    public static RepetitionInfoEntity calculate(RepetitionInfoEntity info, int quality) {
+    public static RepetitionInfoEntity calculate(RepetitionInfoEntity rep, int quality) {
         if (quality < 0 || quality > 5) {
             throw new IllegalArgumentException("quality value should be between 0 and 5");
         }
 
-        int repetitions = info.getRepetitions();
-        float easiness = info.getEasiness();
-        int interval = info.getInterval();
+        int repetitions = rep.getRepetitions();
+        float easiness = rep.getEasiness();
+        int interval = rep.getInterval();
 
         easiness = (float) Math.max(1.3, easiness + 0.1 - (5.0 - quality) * (0.08 + (5.0 - quality) * 0.02));
 
@@ -32,11 +32,10 @@ public class RepetitionAlgorithmService {
 
         LocalDateTime nextPractice = LocalDateTime.now().plusDays(interval);
 
-        RepetitionInfoEntity newRepetition = new RepetitionInfoEntity();
-        newRepetition.setRepetitions(repetitions);
-        newRepetition.setEasiness(easiness);
-        newRepetition.setInterval(interval);
-        newRepetition.setNextPractice(nextPractice);
-        return newRepetition;
+        rep.setRepetitions(repetitions);
+        rep.setEasiness(easiness);
+        rep.setInterval(interval);
+        rep.setNextPractice(nextPractice);
+        return rep;
     }
 }

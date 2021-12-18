@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "cards")
 public class CardEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cardId;
     private String front;
     private String back;
@@ -20,6 +21,6 @@ public class CardEntity {
     @ManyToOne
     @JoinColumn(name = "deck_id")
     private DeckEntity deck;
-    @OneToOne(mappedBy = "card")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "card")
     private RepetitionInfoEntity repetition;
 }
