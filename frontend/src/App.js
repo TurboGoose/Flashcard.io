@@ -1,8 +1,13 @@
+import {useState} from "react";
+import DeckFilter from "./components/DeckFilter";
+
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello world!</h1>
-    </div>
+    const [filter, setFilter] = useState({sort: "", searchQuery: ""})
+
+    return (
+        <div className="App">
+            <DeckFilter filter={filter} setFilter={setFilter}/>
+        </div>
   );
 }
 
