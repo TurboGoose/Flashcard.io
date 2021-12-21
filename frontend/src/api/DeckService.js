@@ -1,7 +1,7 @@
 import axios from "axios";
 import {host} from "./HostInfo";
 
-export default class PostService {
+export default class DeckService {
     static async getUserDecks(userId) {
         const url = host + `decks`
         const res = await axios.get(url, {

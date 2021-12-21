@@ -8,8 +8,6 @@ const DeckFilter = ({filter, setFilter}) => {
                 onChange={e => setFilter({...filter, query: e.target.value})}
                 placeholder="Search..."
             />
-            {/*TODO: remove it later*/}
-            <br/>
             <Select
                 defaultValue="Sort by"
                 options={[
