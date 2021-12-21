@@ -7,7 +7,7 @@ const DeckItem = ({deck, learn, browse, update, del}) => {
             <div className="deck__content">
                 <strong>{deck.title}</strong>
             </div>
-            <div className={"post__btns"}>
+            <div className={"deck__btns"}>
                 <MyButton onClick={() => learn(deck)}>Learn</MyButton>
                 <MyButton onClick={() => browse(deck)}>Browse</MyButton>
                 <MyButton onClick={() => update(deck)}>Update</MyButton>

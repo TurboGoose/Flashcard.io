@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import MyButton from "../components/UI/button/MyButton";
+import {AuthContext} from "../context";
 
 const Login = () => {
     const {setAuth} = useContext(AuthContext)
