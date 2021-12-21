@@ -4,14 +4,11 @@ import {host} from "./HostInfo";
 export default class DeckService {
     static async getUserDecks(userId) {
         const url = host + 'decks'
-        console.log("GET " + url)
-        console.log("UserId: " + userId)
         const res = await axios.get(url, {
             headers: {
                 "userId": userId
             }
         })
-        console.log(res.data)
         return res.data;
     }
 
