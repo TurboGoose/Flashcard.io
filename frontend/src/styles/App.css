@@ -15,7 +15,6 @@
 }
 
 .deck {
-    width: 100%;
     display: flex;
     padding: 15px;
     border: 2px solid teal;
