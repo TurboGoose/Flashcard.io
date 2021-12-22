@@ -19,7 +19,7 @@ const DeckList = ({title, decks, learn, browse, update, del}) => {
             <div>
                 {decks.map(deck =>
                     <DeckItem
-                        deck={deck}
+                        card={deck}
                         learn={learn}
                         browse={browse}
                         update={update}

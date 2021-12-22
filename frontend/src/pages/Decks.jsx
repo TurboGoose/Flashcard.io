@@ -1,47 +1,49 @@
 import React, {useContext, useState} from 'react';
 import {useHistory} from "react-router-dom";
-import DeckList from "../components/DeckList";
+import DeckList from "../components/decks/DeckList";
 import DeckService from "../API/DeckService";
 import {AuthContext} from "../context";
 import MyModal from "../components/UI/modal/MyModal";
-import CreateDeckForm from "../components/CreateDeckForm";
+import CreateDeckForm from "../components/decks/CreateDeckForm";
 import MyButton from "../components/UI/button/MyButton";
-import UpdateDeckForm from "../components/UpdateDeckForm";
+import UpdateDeckForm from "../components/decks/UpdateDeckForm";
 
 const Decks = () => {
     const router = useHistory()
-    const {user} = useContext(AuthContext)
+    const userId = useContext(AuthContext).user.userId
     const [decks, setDecks] = useState([
-        {userId: user.userId, deckId: 1, title: "Deck 1", cardsToLearn: 1, creationTime: Date.now(), lastModified: Date.now()},
-        {userId: user.userId, deckId: 2, title: "Deck 2", cardsToLearn: 2, creationTime: Date.now(), lastModified: Date.now()},
-        {userId: user.userId, deckId: 3, title: "Deck 3", cardsToLearn: 3, creationTime: Date.now(), lastModified: Date.now()},
+        {userId: userId, deckId: 1, title: "Deck 1", cardsToLearn: 1, creationTime: Date.now(), lastModified: Date.now()},
+        {userId: userId, deckId: 2, title: "Deck 2", cardsToLearn: 2, creationTime: Date.now(), lastModified: Date.now()},
+        {userId: userId, deckId: 3, title: "Deck 3", cardsToLearn: 3, creationTime: Date.now(), lastModified: Date.now()},
     ])
     const [curDeck, setCurDeck] = useState({userId: 0, deckId: 0, title: "Default deck", cardsToLearn: 0, creationTime: Date.now(), lastModified: Date.now()})
     const [createModalVisible, setCreateModalVisible] = useState(false)
     const [updateModalVisible, setUpdateModalVisible] = useState(false)
 
     // const [fetchDecks, isLoading, error] = useFetching(async () => {
-    //     const response = await DeckService.getUserDecks(user.userId)
+    //     const response = await DeckService.getUserDecks(userId)
     //     setDecks(response.data)
     // })
     // useEffect(async () => {
-    //     const decks = await DeckService.getUserDecks(user.userId)
+    //     const decks = await DeckService.getUserDecks(userId)
     //     setDecks(decks)
     // }, [])
 
     const learnDeck = deck => router.push(`decks/${deck.deckId}/learn`) //TODO: use hook useParams
     const browseDeck = deck => router.push(`decks/${deck.deckId}/cards`)
     const deleteDeck = async deck => {
-        await DeckService.deleteDeck(user.userId, deck.deckId)
+        // await DeckService.deleteDeck(userId, deck.deckId)
         setDecks(decks.filter(d => d.deckId !== deck.deckId))
     }
     const createDeckModal = async deck => {
-        const newDeck = await DeckService.createDeck(user.userId, deck)
+        // const newDeck = await DeckService.createDeck(userId, deck)
+        const newDeck = deck
         setDecks([...decks, newDeck])
         setCreateModalVisible(false)
     }
     const updateDeckModal = async deck => {
-        const newDeck = await DeckService.updateDeck(user.userId, deck.deckId, deck)
+        // const newDeck = await DeckService.updateDeck(userId, deck.deckId, deck)
+        const newDeck = deck
         setDecks(
             decks.map(d =>
                 d.deckId === newDeck.deckId
@@ -59,7 +61,7 @@ const Decks = () => {
     return (
         <div>
             <MyModal visible={createModalVisible} setVisible={setCreateModalVisible}>
-                <CreateDeckForm callback={createDeckModal}/>
+                <CreateDeckForm createCallback={createDeckModal}/>
             </MyModal>
             <MyModal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
                 <UpdateDeckForm updateCallback={updateDeckModal} deck={curDeck}/>
