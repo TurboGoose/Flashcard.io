@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {AuthContext} from "../context";
 import MyModal from "../components/UI/modal/MyModal";
@@ -8,12 +8,14 @@ import CreateCardForm from "../components/cards/CreateCardForm";
 import UpdateCardForm from "../components/cards/UpdateCardForm";
 import CardList from "../components/cards/CardList";
 import CardInfo from "../components/cards/CardInfo";
+import {useFetching} from "../hooks/useFetching";
+import MyLoader from "../components/loader/MyLoader";
 
 const Cards = () => {
     const userId = useContext(AuthContext).user.userId
     const deckId = useParams().deckId
 
-    const [cards, setCards] = useState([
+    const [cards, setCards] = useState([  // delete this
         {cardId: 1, deckId: deckId, front: "front 1", back: "back 1", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()},
         {cardId: 2, deckId: deckId, front: "front 2", back: "back 2", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()},
         {cardId: 3, deckId: deckId, front: "front 3", back: "back 3", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()}
@@ -23,13 +25,13 @@ const Cards = () => {
     const [createModalVisible, setCreateModalVisible] = useState(false)
     const [updateModalVisible, setUpdateModalVisible] = useState(false)
 
-    // const [fetchDecks, isLoading, error] = useFetching(async () => {
-    //     const response = await DeckService.getUserDecks(userId)
-    //     setDecks(response.data)
-    // })
-    // useEffect(async () => {
-    //     const decks = await DeckService.getUserDecks(userId)
-    //     setDecks(decks)
+    const [fetchCards, isLoading, error] = useFetching( async () => {
+        const response = await CardService.getDeckCards(userId, deckId)
+        setCards(response.data)
+    })
+
+    // useEffect(() => {
+    //     fetchCards()
     // }, [])
 
     const browseCard = card => {
@@ -75,8 +77,11 @@ const Cards = () => {
             <MyModal visible={browseModalVisible} setVisible={setBrowseModalVisible}>
                 <CardInfo card={curCard} closeCallback={() => setBrowseModalVisible(false)}/>
             </MyModal>
-
             <MyButton onClick={() => setCreateModalVisible(true)}>Create card</MyButton>
+
+            {error &&
+            <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
+            }
             <CardList
                 title={"Cards"}
                 cards={cards}
@@ -84,6 +89,9 @@ const Cards = () => {
                 update={updateCard}
                 del={deleteCard}
             />
+            {isLoading &&
+            <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><MyLoader/></div>
+            }
         </div>
     );
 };

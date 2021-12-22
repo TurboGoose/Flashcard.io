@@ -2,17 +2,18 @@ import React from 'react';
 import MyButton from "../UI/button/MyButton";
 import '../../styles/App.css';
 
-const DeckItem = ({card, learn, browse, update, del}) => {
+const DeckItem = ({deck, learn, browse, update, del}) => {
     return (
         <div className="deck">
             <div>
-                <strong>{card.title}</strong>
+                <strong>{deck.title}</strong>
             </div>
             <div className={"deck__btns"}>
-                <MyButton onClick={() => learn(card)}>Learn</MyButton>
-                <MyButton onClick={() => browse(card)}>Browse</MyButton>
-                <MyButton onClick={() => update(card)}>Update</MyButton>
-                <MyButton onClick={() => del(card)}>Delete</MyButton>
+                <strong style={{color: "red"}}>{deck.cardsToLearn}</strong>
+                <MyButton onClick={() => learn(deck)}>Learn</MyButton>
+                <MyButton onClick={() => browse(deck)}>Browse</MyButton>
+                <MyButton onClick={() => update(deck)}>Update</MyButton>
+                <MyButton onClick={() => del(deck)}>Delete</MyButton>
             </div>
         </div>
     );
