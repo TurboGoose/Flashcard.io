@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 
 const UpdateCardForm = ({updateCallback, card}) => {
-    const [updatedCard, setUpdatedCard] = useState({...card, front: '', back: ''})
+    const [updatedCard, setUpdatedCard] = useState(card)
+    useEffect(() => setUpdatedCard(card), [card])
 
     const updateCard = (event) => {
         event.preventDefault()
-        if (updatedCard.front) {
+        if (updatedCard.front && updatedCard.back) {
             updateCallback(updatedCard)
         }
         setUpdatedCard({...card, front: '', back: ''})

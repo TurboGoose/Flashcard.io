@@ -24,6 +24,7 @@ const DeckList = ({title, decks, learn, browse, update, del}) => {
                         browse={browse}
                         update={update}
                         del={del}
+                        key={deck.deckId}
                     />
                 )}
             </div>

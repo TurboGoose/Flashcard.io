@@ -17,12 +17,13 @@ const CardList = ({title, cards, browse, update, del}) => {
         <div>
             <h1 style={{textAlign: "center"}}>{title}</h1>
             <div>
-                {cards.map(deck =>
+                {cards.map(card =>
                     <CardItem
-                        card={deck}
+                        card={card}
                         browse={browse}
                         update={update}
                         del={del}
+                        key={card.cardId}
                     />
                 )}
             </div>
