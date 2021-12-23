@@ -28,7 +28,7 @@ public class LearningController {
     private CardService cardService;
 
     @GetMapping
-    public ResponseEntity getLearningData(@RequestHeader int userId, @PathVariable int deckId) {
+    public ResponseEntity getLearningData(@RequestHeader String userId, @PathVariable int deckId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -46,7 +46,7 @@ public class LearningController {
     }
 
     @PutMapping
-    public ResponseEntity updateLearnedCard(@RequestHeader int userId, @PathVariable int deckId, @RequestBody LearningUpdateModel update) {
+    public ResponseEntity updateLearnedCard(@RequestHeader String userId, @PathVariable int deckId, @RequestBody LearningUpdateModel update) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);

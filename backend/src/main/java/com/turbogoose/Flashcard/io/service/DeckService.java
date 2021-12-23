@@ -18,7 +18,7 @@ public class DeckService {
     @Autowired
     private DeckRepository deckRepository;
 
-    public DeckEntity createDeck(DeckEntity deck, int userId) throws UserNotFoundException {
+    public DeckEntity createDeck(DeckEntity deck, String userId) throws UserNotFoundException {
         UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         deck.setDeckId(null);
         deck.setUser(user);

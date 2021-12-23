@@ -19,16 +19,25 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public UserEntity getUser(int userId) throws UserNotFoundException {
+    public UserEntity getUser(String userId) throws UserNotFoundException {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
-    public void deleteUser(int userId) {
+    public UserEntity createOrGetExistingUser(UserEntity user) {
+        try {
+            return getUser(user.getUserId());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            return createUser(user);
+        }
+    }
+
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
     }
 
-    public boolean isDeckBelongsToUser(int userId, int deckId) throws DeckNotFoundException {
-        int deckOwnerId = deckRepository.findById(deckId).orElseThrow(DeckNotFoundException::new).getUser().getUserId();
-        return deckOwnerId == userId;
+    public boolean isDeckBelongsToUser(String userId, int deckId) throws DeckNotFoundException {
+        String deckOwnerId = deckRepository.findById(deckId).orElseThrow(DeckNotFoundException::new).getUser().getUserId();
+        return deckOwnerId.equals(userId);
     }
 }

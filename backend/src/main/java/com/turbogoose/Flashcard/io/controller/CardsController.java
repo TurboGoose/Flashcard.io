@@ -26,7 +26,7 @@ public class CardsController {
     private CardService cardService;
 
     @GetMapping
-    public ResponseEntity getAllCards(@RequestHeader int userId, @PathVariable int deckId) {
+    public ResponseEntity getAllCards(@RequestHeader String userId, @PathVariable int deckId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -42,7 +42,7 @@ public class CardsController {
     }
 
     @PostMapping
-    public ResponseEntity createNewCard(@RequestHeader int userId, @PathVariable int deckId, @RequestBody CardEntity card) {
+    public ResponseEntity createNewCard(@RequestHeader String userId, @PathVariable int deckId, @RequestBody CardEntity card) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);

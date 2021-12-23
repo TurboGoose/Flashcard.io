@@ -20,7 +20,7 @@ public class DeckController {
     private DeckService deckService;
 
     @GetMapping
-    public ResponseEntity getDeck(@RequestHeader int userId, @PathVariable int deckId) {
+    public ResponseEntity getDeck(@RequestHeader String userId, @PathVariable int deckId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -34,7 +34,7 @@ public class DeckController {
     }
 
     @PutMapping
-    public ResponseEntity updateDeck(@RequestHeader int userId, @PathVariable int deckId, @RequestBody DeckEntity update) {
+    public ResponseEntity updateDeck(@RequestHeader String userId, @PathVariable int deckId, @RequestBody DeckEntity update) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -49,7 +49,7 @@ public class DeckController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteDeck(@RequestHeader int userId, @PathVariable int deckId) {
+    public ResponseEntity deleteDeck(@RequestHeader String userId, @PathVariable int deckId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);

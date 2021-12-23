@@ -21,7 +21,7 @@ public class CardController {
     private CardService cardService;
 
     @GetMapping
-    public ResponseEntity getCard(@RequestHeader int userId, @PathVariable int deckId, @PathVariable int cardId) {
+    public ResponseEntity getCard(@RequestHeader String userId, @PathVariable int deckId, @PathVariable int cardId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -35,7 +35,7 @@ public class CardController {
     }
 
     @PutMapping
-    public ResponseEntity updateCard(@RequestHeader int userId, @PathVariable int deckId, @PathVariable int cardId, @RequestBody CardEntity update) {
+    public ResponseEntity updateCard(@RequestHeader String userId, @PathVariable int deckId, @PathVariable int cardId, @RequestBody CardEntity update) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
@@ -50,7 +50,7 @@ public class CardController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteCard(@RequestHeader int userId, @PathVariable int deckId, @PathVariable int cardId) {
+    public ResponseEntity deleteCard(@RequestHeader String userId, @PathVariable int deckId, @PathVariable int cardId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);

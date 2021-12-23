@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DeckModel {
     private int deckId;
-    private int userId;
+    private String userId;
     private String title;
     private int cardsToLearn;
     private List<CardModel> cards;

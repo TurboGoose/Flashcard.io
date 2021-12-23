@@ -24,7 +24,7 @@ public class DecksController {
     private DeckService deckService;
 
     @GetMapping
-    public ResponseEntity getAllDecks(@RequestHeader int userId) {
+    public ResponseEntity getAllDecks(@RequestHeader String userId) {
         try {
             UserEntity user = userService.getUser(userId);
             List<DeckModel> decks = user.getDecks().stream()
@@ -38,7 +38,7 @@ public class DecksController {
     }
 
     @PostMapping
-    public ResponseEntity createNewDeck(@RequestHeader int userId, @RequestBody DeckEntity deck) {
+    public ResponseEntity createNewDeck(@RequestHeader String userId, @RequestBody DeckEntity deck) {
         try {
             DeckModel newDeck = DeckModel.toDeckModel(deckService.createDeck(deck, userId)).excludeCards();
             return ResponseEntity.ok(newDeck);

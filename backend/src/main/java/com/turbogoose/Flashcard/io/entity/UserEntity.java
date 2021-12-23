@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "users")
 public class UserEntity {
     @Id
-    private Integer userId;
+    private String userId;
     private String name;
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
