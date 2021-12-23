@@ -1,21 +1,13 @@
-import React, {useContext} from 'react';
-import MyButton from "../components/UI/button/MyButton";
-import {AuthContext} from "../context";
+import React from 'react';
+import LoginButton from "../components/LoginButton";
+import LogoutButton from "../components/LogOutButton";
 
 const Login = () => {
-    const {setAuth} = useContext(AuthContext)
-
-    const login = event => {
-        event.preventDefault()
-        setAuth(true)
-        localStorage.setItem("auth", "true")
-    }
-
     return (
         <div>
-            {/*log in via Oauth2 here*/}
             <h1>Log in page</h1>
-            <MyButton onClick={login}/>
+            <LoginButton/>
+            <LogoutButton/>
         </div>
     );
 };
