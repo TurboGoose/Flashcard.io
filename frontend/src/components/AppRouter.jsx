@@ -1,13 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../router";
-import {AuthContext} from "../context";
+import {useAuth0} from "@auth0/auth0-react";
 
 const AppRouter = () => {
-    const {isAuth} = useContext(AuthContext)
-    console.log(useLocation().pathname)
+    const {isAuthenticated} = useAuth0();
+    console.log(useLocation().pathname, ", isAuthenticated: " + isAuthenticated)
+
     return (
-        isAuth
+        isAuthenticated
             ?
             <Switch>
                 {privateRoutes.map(route =>
@@ -30,7 +31,7 @@ const AppRouter = () => {
                         key = {route.path}
                     />
                 )}
-                <Redirect to={"/login"}/>
+                {/*<Redirect to={"/login"}/>*/}
             </Switch>
     );
 };

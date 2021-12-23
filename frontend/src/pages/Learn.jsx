@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {AuthContext} from "../context";
+import {UserContext} from "../context";
 import {useHistory, useParams} from "react-router-dom";
 import MyButton from "../components/UI/button/MyButton";
 import {useFetching} from "../hooks/useFetching";
@@ -7,7 +7,7 @@ import LearningService from "../API/LearningService";
 
 const Learn = () => {
     const router = useHistory()
-    const userId = useContext(AuthContext).user.userId
+    const {userId} = useContext(UserContext).user
     const deckId = useParams().deckId;
 
     const [cards, setCards] = useState([  // delete this

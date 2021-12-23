@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {AuthContext} from "../context";
+import {UserContext} from "../context";
 import MyModal from "../components/UI/modal/MyModal";
 import MyButton from "../components/UI/button/MyButton";
 import CardService from "../API/CardService";
@@ -12,7 +12,7 @@ import {useFetching} from "../hooks/useFetching";
 import MyLoader from "../components/loader/MyLoader";
 
 const Cards = () => {
-    const userId = useContext(AuthContext).user.userId
+    const {userId} = useContext(UserContext).user
     const deckId = useParams().deckId
 
     const [cards, setCards] = useState([  // delete this

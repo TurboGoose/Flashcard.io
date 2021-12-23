@@ -1,16 +1,16 @@
-import React, {useContext} from 'react';
-import {Link, useHistory} from "react-router-dom";
+import React from 'react';
+import {useHistory} from "react-router-dom";
 import MyButton from "../button/MyButton";
-import {AuthContext} from "../../../context";
 import LogoutButton from "../../LogOutButton";
+import {useAuth0} from "@auth0/auth0-react";
 
 const MyNavbar = () => {
     const router = useHistory()
-    const {isAuth} = useContext(AuthContext)
+    const {isAuthenticated} = useAuth0();
 
     return (
         <div className="navbar">
-            {isAuth &&
+            {isAuthenticated &&
                 <div>
                     <LogoutButton/>
                     <MyButton onClick={() => router.push("/decks")}>Decks</MyButton>
