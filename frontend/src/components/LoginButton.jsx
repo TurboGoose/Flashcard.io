@@ -3,15 +3,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import MyButton from "./UI/button/MyButton";
 import {AuthContext} from "../context";
 
-const LoginButton = () => {
-    const {loginWithRedirect} = useAuth0();
+const LoginButton = ({onClick}) => {
+    const {loginWithRedirect, isAuthenticated} = useAuth0();
     const {setIsAuth} = useContext(AuthContext)
 
     const login = event => {
         event.preventDefault()
         loginWithRedirect()
-        setIsAuth(true)
-        localStorage.setItem("auth", "true")
+        setIsAuth(isAuthenticated)
+        localStorage.setItem("auth", String(isAuthenticated))
+        onClick()
     }
 
     return (

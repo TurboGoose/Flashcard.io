@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import {AuthContext} from "./context";
 import AppRouter from "./components/AppRouter";
 import {BrowserRouter} from "react-router-dom";
-import {getConfig} from "./auth/Config";
-import {frontendHost} from "./API/HostInfo";
-import {Auth0Provider} from "@auth0/auth0-react";
+import {useAuth0} from "@auth0/auth0-react";
+import MyNavbar from "./components/UI/navbar/MyNavbar";
 
 function App() {
+    console.log(useAuth0().isAuthenticated)
     const [isAuth, setIsAuth] = useState(false)
     const [user, setUser] = useState({userId: 0 , name: "", email: ""})
 
@@ -16,24 +16,15 @@ function App() {
         }
     }, [])
 
-    const providerConfig = {
-        ...getConfig(),
-        redirectUri: frontendHost + "/decks",
-    };
-
-
-    // add Auth0 loading and error handling from tutorial
-
     return (
-        <Auth0Provider {...providerConfig}>
-            <AuthContext.Provider value={{
-                user, setUser, isAuth, setIsAuth
-            }}>
-                <BrowserRouter>
-                    <AppRouter/>
-                </BrowserRouter>
-            </AuthContext.Provider>
-        </Auth0Provider>
+        <AuthContext.Provider value={{
+            user, setUser, isAuth, setIsAuth
+        }}>
+            <BrowserRouter>
+                <MyNavbar/>
+                <AppRouter/>
+            </BrowserRouter>
+        </AuthContext.Provider>
 
   );
 }

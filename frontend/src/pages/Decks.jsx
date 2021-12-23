@@ -9,10 +9,12 @@ import MyButton from "../components/UI/button/MyButton";
 import UpdateDeckForm from "../components/decks/UpdateDeckForm";
 import {useFetching} from "../hooks/useFetching";
 import MyLoader from "../components/loader/MyLoader";
+import {useAuth0} from "@auth0/auth0-react";
+import Profile from "../auth/profile";
 
 const Decks = () => {
     const router = useHistory()
-    const userId = useContext(AuthContext).user.userId
+    const {userId} = useContext(AuthContext).user
     const [decks, setDecks] = useState([ // delete this
         {userId: userId, deckId: 1, title: "Deck 1", cardsToLearn: 1, creationTime: Date.now(), lastModified: Date.now()},
         {userId: userId, deckId: 2, title: "Deck 2", cardsToLearn: 2, creationTime: Date.now(), lastModified: Date.now()},
@@ -60,6 +62,8 @@ const Decks = () => {
         setCurDeck(deck)
     }
 
+
+
     return (
         <div>
             <MyModal visible={createModalVisible} setVisible={setCreateModalVisible}>
@@ -69,7 +73,7 @@ const Decks = () => {
                 <UpdateDeckForm updateCallback={updateDeckModal} deck={curDeck}/>
             </MyModal>
             <MyButton onClick={() => setCreateModalVisible(true)}>Create deck</MyButton>
-
+            <Profile/>
             {error &&
             <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
             }

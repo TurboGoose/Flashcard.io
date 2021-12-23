@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../router";
 import {AuthContext} from "../context";
 
 const AppRouter = () => {
     const {isAuth} = useContext(AuthContext)
-
+    console.log(useLocation().pathname)
     return (
         isAuth
             ?
