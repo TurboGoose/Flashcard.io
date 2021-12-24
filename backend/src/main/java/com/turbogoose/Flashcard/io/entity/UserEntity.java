@@ -1,5 +1,6 @@
 package com.turbogoose.Flashcard.io.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,5 +18,6 @@ public class UserEntity {
     private String name;
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<DeckEntity> decks = new ArrayList<>();
 }

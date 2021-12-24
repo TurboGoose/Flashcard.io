@@ -27,7 +27,7 @@ public class UserService {
         try {
             return getUser(user.getUserId());
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Creating new user " + user.getUserId());
             return createUser(user);
         }
     }
