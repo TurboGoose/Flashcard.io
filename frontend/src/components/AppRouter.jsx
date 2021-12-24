@@ -5,7 +5,7 @@ import {useAuth0} from "@auth0/auth0-react";
 
 const AppRouter = () => {
     const {isAuthenticated} = useAuth0();
-    // console.log(useLocation().pathname, ", isAuthenticated: " + isAuthenticated)
+    console.log(useLocation().pathname, ", isAuthenticated: " + isAuthenticated)
 
     return (
         isAuthenticated

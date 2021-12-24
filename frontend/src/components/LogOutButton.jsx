@@ -1,7 +1,7 @@
 import React from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import MyButton from "./UI/button/MyButton";
-import {frontendHost} from "../API/HostInfo";
+import {frontendHost} from "../router/HostInfo";
 
 const LogoutButton = () => {
     const {logout, isAuthenticated} = useAuth0();

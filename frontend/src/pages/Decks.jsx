@@ -9,7 +9,6 @@ import MyButton from "../components/UI/button/MyButton";
 import UpdateDeckForm from "../components/decks/UpdateDeckForm";
 import {useFetching} from "../hooks/useFetching";
 import MyLoader from "../components/loader/MyLoader";
-import Profile from "../components/auth/Profile";
 import Wrapper from "../components/auth/Wrapper";
 import {useAuth0} from "@auth0/auth0-react";
 import UserService from "../API/UserService";
@@ -79,8 +78,6 @@ const Decks = () => {
                     <UpdateDeckForm updateCallback={updateDeckModal} deck={curDeck}/>
                 </MyModal>
                 <MyButton onClick={() => setCreateModalVisible(true)}>Create deck</MyButton>
-                <Profile/>
-                <h4>{JSON.stringify(useContext(UserContext).user)}</h4>
                 {error &&
                 <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
                 }
