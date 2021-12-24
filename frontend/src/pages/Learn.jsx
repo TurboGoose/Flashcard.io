@@ -4,36 +4,34 @@ import {useHistory, useParams} from "react-router-dom";
 import MyButton from "../components/UI/button/MyButton";
 import {useFetching} from "../hooks/useFetching";
 import LearningService from "../API/LearningService";
+import MyLoader from "../components/loader/MyLoader";
 
 const Learn = () => {
     const router = useHistory()
-    const {userId} = useContext(UserContext).user
-    const deckId = useParams().deckId;
+    const {user} = useContext(UserContext)
+    const {deckId} = useParams();
 
-    const [cards, setCards] = useState([  // delete this
-        {cardId: 1, deckId: deckId, front: "front 1", back: "back 1", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()},
-        {cardId: 2, deckId: deckId, front: "front 2", back: "back 2", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()},
-        {cardId: 3, deckId: deckId, front: "front 3", back: "back 3", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()}
-    ])
+    const [cards, setCards] = useState([{cardId: 0, front: "", back: ""}])
 
     const [index, setIndex] = useState(1)
-    const [curCard, setCurCard] = useState(cards[0])
+    const [curCard, setCurCard] = useState({cardId: 0, front: "", back: ""})
     const [isAnswerShowing, setIsAnswerShowing] = useState(false)
 
     const [fetchCards, isLoading, error] = useFetching( async () => {
-        const response = await LearningService.loadCardsToLearn(userId, deckId)
-        setCards(response.data)
+        const received = await LearningService.loadCardsToLearn(user.userId, deckId)
+        setCards(received)
+        setCurCard(received[0])
     })
 
-    // useEffect(() => {
-    //     fetchCards()
-    // }, [])
+    useEffect(() => {
+        fetchCards()
+    }, [])
 
     const factory = (q) => {
         return () => {
             setIndex(index + 1)
             const reviewData = {cardId: curCard.cardId, quality: q}
-            // LearningService.updateCard(userId, deckId, reviewData)
+            LearningService.updateCard(user.userId, deckId, reviewData)
             if (index >= cards.length) {
                 router.push("/decks")
                 return
@@ -53,6 +51,9 @@ const Learn = () => {
             <br/>
             {isAnswerShowing &&
                 <div>
+                    {error &&
+                    <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
+                    }
                     <div>{curCard.back}</div>
                     <br/>
                     <div>
@@ -64,6 +65,9 @@ const Learn = () => {
                         <MyButton onClick={factory(4)}>4</MyButton>
                         <MyButton onClick={factory(5)}>5</MyButton>
                     </div>
+                    {isLoading &&
+                    <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><MyLoader/></div>
+                    }
                 </div>
             }
 

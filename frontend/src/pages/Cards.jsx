@@ -12,46 +12,40 @@ import {useFetching} from "../hooks/useFetching";
 import MyLoader from "../components/loader/MyLoader";
 
 const Cards = () => {
-    const {userId} = useContext(UserContext).user
-    const deckId = useParams().deckId
+    const {user} = useContext(UserContext)
+    const {deckId} = useParams()
 
-    const [cards, setCards] = useState([  // delete this
-        {cardId: 1, deckId: deckId, front: "front 1", back: "back 1", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()},
-        {cardId: 2, deckId: deckId, front: "front 2", back: "back 2", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()},
-        {cardId: 3, deckId: deckId, front: "front 3", back: "back 3", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()}
-    ])
+    const [cards, setCards] = useState([])
     const [curCard, setCurCard] = useState({cardId: 0, deckId: deckId, front: "Def", back: "Def", nextPractice: Date.now(), creationTime: Date.now(), lastModified: Date.now()}) // insert default card here
     const [browseModalVisible, setBrowseModalVisible] = useState(false)
     const [createModalVisible, setCreateModalVisible] = useState(false)
     const [updateModalVisible, setUpdateModalVisible] = useState(false)
 
     const [fetchCards, isLoading, error] = useFetching( async () => {
-        const response = await CardService.getDeckCards(userId, deckId)
-        setCards(response.data)
+        const loadedCards = await CardService.getDeckCards(user.userId, deckId)
+        setCards(loadedCards)
     })
 
-    // useEffect(() => {
-    //     fetchCards()
-    // }, [])
+    useEffect(() => {
+        fetchCards()
+    }, [])
 
     const browseCard = card => {
         setCurCard(card)
         setBrowseModalVisible(true)
     }
     const deleteCard = async card => {
-        // await CardService.deleteCard(userId, deckId, card.cardId)
+        await CardService.deleteCard(user.userId, deckId, card.cardId)
         setCards(cards.filter(c => c.cardId !== card.cardId))
     }
     const createCardModal = async card => {
-        // const newCard = await DeckService.createDeck(userId, card)
-        const newCard = card
+        const newCard = await CardService.createCard(user.userId, deckId, card)
         setCards([...cards, newCard])
         setCreateModalVisible(false)
     }
 
     const updateCardModal = async card => {
-        // const newCard = await CardService.updateCard(userId, deckId, card.cardId, card)
-        const newCard = card
+        const newCard = await CardService.updateCard(user.userId, deckId, card.cardId, card)
         setCards(
             cards.map(c =>
                 c.cardId === newCard.cardId

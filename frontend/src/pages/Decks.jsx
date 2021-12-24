@@ -18,11 +18,7 @@ const Decks = () => {
     const router = useHistory()
     const {user: externalUser, isAuthenticated} = useAuth0()
     const {user, setUser} = useContext(UserContext)
-    const [decks, setDecks] = useState([ // delete this
-        {userId: user.userId, deckId: 1, title: "Deck 1", cardsToLearn: 1, creationTime: Date.now(), lastModified: Date.now()},
-        {userId: user.userId, deckId: 2, title: "Deck 2", cardsToLearn: 2, creationTime: Date.now(), lastModified: Date.now()},
-        {userId: user.userId, deckId: 3, title: "Deck 3", cardsToLearn: 3, creationTime: Date.now(), lastModified: Date.now()},
-    ])
+    const [decks, setDecks] = useState([])
     const [curDeck, setCurDeck] = useState({userId: 0, deckId: 0, title: "Default deck", cardsToLearn: 0, creationTime: Date.now(), lastModified: Date.now()})
     const [createModalVisible, setCreateModalVisible] = useState(false)
     const [updateModalVisible, setUpdateModalVisible] = useState(false)
@@ -36,12 +32,10 @@ const Decks = () => {
             name: externalUser.name,
             email: externalUser.email
         }
-        console.log("Retrieving data from backend...")
-        // const updatedUser = await UserService.createUser(newUser)
-        const updatedUser = newUser
-        setUser(updatedUser)
-        // const response = await DeckService.getUserDecks(updatedUser.userId)
-        // setDecks(response.data)
+        const loadedUser = await UserService.createUser(newUser)
+        setUser(loadedUser)
+        const loadedDecks = await DeckService.getUserDecks(loadedUser.userId)
+        setDecks(loadedDecks)
     })
 
     useEffect(() => {
@@ -51,18 +45,16 @@ const Decks = () => {
     const learnDeck = deck => router.push(`decks/${deck.deckId}/learn`)
     const browseDeck = deck => router.push(`decks/${deck.deckId}/cards`)
     const deleteDeck = async deck => {
-        // await DeckService.deleteDeck(user.userId, deck.deckId)
+        await DeckService.deleteDeck(user.userId, deck.deckId)
         setDecks(decks.filter(d => d.deckId !== deck.deckId))
     }
     const createDeckModal = async deck => {
-        // const newDeck = await DeckService.createDeck(user.userId, deck)
-        const newDeck = deck
+        const newDeck = await DeckService.createDeck(user.userId, deck)
         setDecks([...decks, newDeck])
         setCreateModalVisible(false)
     }
     const updateDeckModal = async deck => {
-        // const newDeck = await DeckService.updateDeck(user.userId, deck.deckId, deck)
-        const newDeck = deck
+        const newDeck = await DeckService.updateDeck(user.userId, deck.deckId, deck)
         setDecks(
             decks.map(d =>
                 d.deckId === newDeck.deckId
