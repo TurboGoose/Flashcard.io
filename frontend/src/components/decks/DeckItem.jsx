@@ -10,7 +10,7 @@ const DeckItem = ({deck, learn, browse, update, del}) => {
             </div>
             <div className={"deck__btns"}>
                 <strong style={{color: "red"}}>{deck.cardsToLearn}</strong>
-                <MyButton onClick={() => learn(deck)}>Learn</MyButton>
+                <MyButton disabled={deck.cardsToLearn <= 0} onClick={() => learn(deck)}>Learn</MyButton>
                 <MyButton onClick={() => browse(deck)}>Browse</MyButton>
                 <MyButton onClick={() => update(deck)}>Update</MyButton>
                 <MyButton onClick={() => del(deck)}>Delete</MyButton>

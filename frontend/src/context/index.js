@@ -1,3 +1,4 @@
 import {createContext} from "react";
 
-export const UserContext = createContext(null)
+export const AccessTokenContext = createContext(null)
+export const DeckContext = createContext(null)

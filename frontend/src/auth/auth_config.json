@@ -1,4 +1,5 @@
 {
   "domain": "dev-sggtlhgv.us.auth0.com",
-  "clientId": "5R2Uf6t59vrYJrHBUcX7LyqjgaGDfeUO"
+  "clientId": "5R2Uf6t59vrYJrHBUcX7LyqjgaGDfeUO",
+  "audience": "http://localhost:8080/decks"
 }

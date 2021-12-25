@@ -1,26 +1,31 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {UserContext} from "../context";
+import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import MyButton from "../components/UI/button/MyButton";
 import {useFetching} from "../hooks/useFetching";
 import LearningService from "../API/LearningService";
 import MyLoader from "../components/loader/MyLoader";
+import {useAuth0} from "@auth0/auth0-react";
 
 const Learn = () => {
     const router = useHistory()
-    const {user} = useContext(UserContext)
+    const {isAuthenticated, getAccessTokenSilently} = useAuth0()
     const {deckId} = useParams();
-
-    const [cards, setCards] = useState([{cardId: 0, front: "", back: ""}])
+    const [accessToken, setAccessToken] = useState("")
 
     const [index, setIndex] = useState(1)
+    const [cards, setCards] = useState([{cardId: 0, front: "", back: ""}])
     const [curCard, setCurCard] = useState({cardId: 0, front: "", back: ""})
     const [isAnswerShowing, setIsAnswerShowing] = useState(false)
 
     const [fetchCards, isLoading, error] = useFetching( async () => {
-        const received = await LearningService.loadCardsToLearn(user.userId, deckId)
+        if (!isAuthenticated) {
+            return
+        }
+        const loadedAccessToken = await getAccessTokenSilently()
+        const received = await LearningService.loadCardsToLearn(loadedAccessToken, deckId)
         setCards(received)
         setCurCard(received[0])
+        setAccessToken(loadedAccessToken)
     })
 
     useEffect(() => {
@@ -31,7 +36,7 @@ const Learn = () => {
         return () => {
             setIndex(index + 1)
             const reviewData = {cardId: curCard.cardId, quality: q}
-            LearningService.updateCard(user.userId, deckId, reviewData)
+            LearningService.updateCard(accessToken, deckId, reviewData)
             if (index >= cards.length) {
                 router.push("/decks")
                 return

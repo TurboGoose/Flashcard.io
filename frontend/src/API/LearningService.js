@@ -2,21 +2,21 @@ import axios from "axios";
 import {backendHost} from "../router/HostInfo";
 
 export default class LearningService {
-    static async loadCardsToLearn(userId, deckId) {
+    static async loadCardsToLearn(accessToken, deckId) {
         const url = backendHost + `/decks/${deckId}/learn`
         const res = await axios.get(url, {
             headers: {
-                "userId": userId
+                Authorization: `Bearer ${accessToken}`
             }
         })
         return res.data;
     }
 
-    static async updateCard(userId, deckId, cardData) {
+    static async updateCard(accessToken, deckId, cardData) {
         const url = backendHost + `/decks/${deckId}/learn`
         const res = await axios.put(url, cardData, {
             headers: {
-                "userId": userId
+                Authorization: `Bearer ${accessToken}`
             }
         })
         return res.data
