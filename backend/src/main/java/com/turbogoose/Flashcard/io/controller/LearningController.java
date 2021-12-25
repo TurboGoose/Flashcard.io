@@ -29,7 +29,9 @@ public class LearningController {
     public ResponseEntity getLearningData(Principal principal, @PathVariable int deckId) {
         try {
             String userId = principal.getName();
-            // validate deck belongs to user here
+            if (!deckService.checkDeckBelongsToUser(deckId, userId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
             LocalDateTime now = LocalDateTime.now();
             List<CardModel> cards = deckService.getDeck(deckId).getCards().stream()
                     .filter(card -> card.getRepetition().getNextPractice().isBefore(now))
@@ -46,12 +48,16 @@ public class LearningController {
     public ResponseEntity updateLearnedCard(Principal principal, @PathVariable int deckId, @RequestBody LearningUpdateModel update) {
         try {
             String userId = principal.getName();
-            // validate deck belongs to user here
+            int cardId = update.getCardId();
+            if (!deckService.checkDeckBelongsToUser(deckId, userId) ||
+                    !cardService.checkCardBelongsToDeck(cardId, deckId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
             CardModel updatedCard = CardModel.toCardModel(
                     cardService.updateCardDuringLearning(update.getCardId(), update.getQuality())
             );
             return ResponseEntity.ok(updatedCard);
-        } catch (CardNotFoundException e) {
+        } catch (CardNotFoundException | DeckNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

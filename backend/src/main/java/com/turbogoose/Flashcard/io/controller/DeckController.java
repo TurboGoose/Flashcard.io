@@ -22,7 +22,9 @@ public class DeckController {
     public ResponseEntity getDeck(Principal principal, @PathVariable int deckId) {
         try {
             String userId = principal.getName();
-            // validate deck belongs to user here
+            if (!deckService.checkDeckBelongsToUser(deckId, userId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
             DeckModel deck = DeckModel.toDeckModel(deckService.getDeck(deckId));
             return ResponseEntity.ok(deck);
         } catch (DeckNotFoundException e) {
@@ -35,7 +37,9 @@ public class DeckController {
     public ResponseEntity updateDeck(Principal principal, @PathVariable int deckId, @RequestBody DeckEntity update) {
         try {
             String userId = principal.getName();
-            // validate deck belongs to user here
+            if (!deckService.checkDeckBelongsToUser(deckId, userId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
             update.setDeckId(deckId);
             DeckModel deck = DeckModel.toDeckModel(deckService.updateDeck(update));
             return ResponseEntity.ok(deck);
@@ -47,9 +51,18 @@ public class DeckController {
 
     @DeleteMapping
     public ResponseEntity deleteDeck(Principal principal, @PathVariable int deckId) {
-        String userId = principal.getName();
-        // validate deck belongs to user here
-        deckService.deleteDeck(deckId);
-        return ResponseEntity.ok().build();
+        try {
+            String userId = principal.getName();
+            if (!deckService.checkDeckBelongsToUser(deckId, userId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
+            deckService.deleteDeck(deckId);
+            return ResponseEntity.ok().build();
+        } catch (DeckNotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
+
+
 }

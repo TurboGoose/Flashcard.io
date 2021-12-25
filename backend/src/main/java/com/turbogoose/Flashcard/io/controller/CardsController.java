@@ -27,7 +27,9 @@ public class CardsController {
     public ResponseEntity getAllCards(Principal principal, @PathVariable int deckId) {
         try {
             String userId = principal.getName();
-            // validate deck belongs to user here
+            if (!deckService.checkDeckBelongsToUser(deckId, userId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
             List<CardModel> cards = deckService.getDeck(deckId).getCards().stream()
                     .map(CardModel::toCardModel)
                     .collect(Collectors.toList());
@@ -42,7 +44,9 @@ public class CardsController {
     public ResponseEntity createNewCard(Principal principal, @PathVariable int deckId, @RequestBody CardEntity card) {
         try {
             String userId = principal.getName();
-            // validate deck belongs to user here
+            if (!deckService.checkDeckBelongsToUser(deckId, userId)) {
+                return new ResponseEntity(HttpStatus.FORBIDDEN);
+            }
             CardModel newCard = CardModel.toCardModel(cardService.createCard(card, deckId));
             return ResponseEntity.ok(newCard);
         } catch (DeckNotFoundException e) {

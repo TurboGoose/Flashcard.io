@@ -34,4 +34,9 @@ public class DeckService {
     public void deleteDeck(int deckId) {
         deckRepository.deleteById(deckId);
     }
+
+    public boolean checkDeckBelongsToUser(int deckId, String userId) throws DeckNotFoundException {
+        DeckEntity deck = deckRepository.findById(deckId).orElseThrow(DeckNotFoundException::new);
+        return deck.getUserId().equals(userId);
+    }
 }

@@ -59,4 +59,9 @@ public class CardService {
     public void deleteCard(int cardId) {
         cardRepository.deleteById(cardId);
     }
+
+    public boolean checkCardBelongsToDeck(int cardId, int deckId) throws CardNotFoundException {
+        CardEntity card = cardRepository.findById(cardId).orElseThrow(CardNotFoundException::new);
+        return card.getDeck().getDeckId() == deckId;
+    }
 }
