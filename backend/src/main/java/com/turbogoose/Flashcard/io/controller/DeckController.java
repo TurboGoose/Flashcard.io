@@ -4,27 +4,25 @@ import com.turbogoose.Flashcard.io.entity.DeckEntity;
 import com.turbogoose.Flashcard.io.exception.DeckNotFoundException;
 import com.turbogoose.Flashcard.io.model.DeckModel;
 import com.turbogoose.Flashcard.io.service.DeckService;
-import com.turbogoose.Flashcard.io.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @CrossOrigin
 @RestController
 @RequestMapping("decks/{deckId}")
 public class DeckController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private DeckService deckService;
 
     @GetMapping
-    public ResponseEntity getDeck(@RequestHeader String userId, @PathVariable int deckId) {
+    public ResponseEntity getDeck(Principal principal, @PathVariable int deckId) {
         try {
-            if (!userService.isDeckBelongsToUser(userId, deckId)) {
-                return new ResponseEntity(HttpStatus.FORBIDDEN);
-            }
+            String userId = principal.getName();
+            // validate deck belongs to user here
             DeckModel deck = DeckModel.toDeckModel(deckService.getDeck(deckId));
             return ResponseEntity.ok(deck);
         } catch (DeckNotFoundException e) {
@@ -34,12 +32,10 @@ public class DeckController {
     }
 
     @PutMapping
-    public ResponseEntity updateDeck(@RequestHeader String userId, @PathVariable int deckId, @RequestBody DeckEntity update) {
+    public ResponseEntity updateDeck(Principal principal, @PathVariable int deckId, @RequestBody DeckEntity update) {
         try {
-            // rewrite this just on the deck (not deckId)
-            if (!userService.isDeckBelongsToUser(userId, deckId)) {
-                return new ResponseEntity(HttpStatus.FORBIDDEN);
-            }
+            String userId = principal.getName();
+            // validate deck belongs to user here
             update.setDeckId(deckId);
             DeckModel deck = DeckModel.toDeckModel(deckService.updateDeck(update));
             return ResponseEntity.ok(deck);
@@ -50,14 +46,9 @@ public class DeckController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteDeck(@RequestHeader String userId, @PathVariable int deckId) {
-        try {
-            if (!userService.isDeckBelongsToUser(userId, deckId)) {
-                return new ResponseEntity(HttpStatus.FORBIDDEN);
-            }
-        } catch (DeckNotFoundException ignore) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity deleteDeck(Principal principal, @PathVariable int deckId) {
+        String userId = principal.getName();
+        // validate deck belongs to user here
         deckService.deleteDeck(deckId);
         return ResponseEntity.ok().build();
     }

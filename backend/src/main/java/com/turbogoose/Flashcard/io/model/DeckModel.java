@@ -25,7 +25,7 @@ public class DeckModel {
     public static DeckModel toDeckModel(DeckEntity deck) {
         DeckModel model = new DeckModel();
         model.setDeckId(deck.getDeckId());
-        model.setUserId(deck.getUser().getUserId());
+        model.setUserId(deck.getUserId());
         model.setTitle(deck.getTitle());
         model.setCardsToLearn(calculateCardsToLearn(deck.getCards()));
         model.setCards(

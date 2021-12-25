@@ -16,12 +16,10 @@ public class DeckEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer deckId;
+    private String userId;
     private String title;
     private LocalDateTime creationTime;
     private LocalDateTime lastModified;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deck")
     private List<CardEntity> cards = new ArrayList<>();
 }
