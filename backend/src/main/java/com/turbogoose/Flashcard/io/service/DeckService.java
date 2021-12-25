@@ -20,14 +20,18 @@ public class DeckService {
 
     public DeckEntity createDeck(DeckEntity deck, String userId) throws UserNotFoundException {
         UserEntity user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        deck.setDeckId(null);
+        return createDeck(deck, user);
+    }
+
+    public DeckEntity createDeck(DeckEntity deck, UserEntity user) {
         deck.setUser(user);
         deck.setCreationTime(LocalDateTime.now());
         deck.setLastModified(LocalDateTime.now());
         return deckRepository.save(deck);
     }
 
-    public DeckEntity getDeck(int deckId) throws DeckNotFoundException {
+
+        public DeckEntity getDeck(int deckId) throws DeckNotFoundException {
         return deckRepository.findById(deckId).orElseThrow(DeckNotFoundException::new);
     }
 

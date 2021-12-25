@@ -36,6 +36,7 @@ public class DeckController {
     @PutMapping
     public ResponseEntity updateDeck(@RequestHeader String userId, @PathVariable int deckId, @RequestBody DeckEntity update) {
         try {
+            // rewrite this just on the deck (not deckId)
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
             }

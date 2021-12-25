@@ -21,7 +21,7 @@ public class CardController {
     private CardService cardService;
 
     @GetMapping
-    public ResponseEntity getCard(@RequestHeader String userId, @PathVariable int deckId, @PathVariable int cardId) {
+        public ResponseEntity getCard(@RequestHeader String userId, @PathVariable int deckId, @PathVariable int cardId) {
         try {
             if (!userService.isDeckBelongsToUser(userId, deckId)) {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
