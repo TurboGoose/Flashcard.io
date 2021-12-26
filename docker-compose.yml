@@ -1,0 +1,29 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: flashcardio
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+
+  api:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
+
+  client:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    restart: always
