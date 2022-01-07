@@ -1,10 +1,11 @@
 import React from 'react';
 import LoginButton from "../components/LoginButton";
+import "../styles/Login.css"
 
 const Login = () => {
     return (
-        <div>
-            <h1>Log in page</h1>
+        <div className={"login"}>
+            <h1>Log in via Google</h1>
             <LoginButton/>
         </div>
     );
