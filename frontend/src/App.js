@@ -2,7 +2,7 @@ import {useState} from "react";
 import {AccessTokenContext, DeckContext} from "./context";
 import AppRouter from "./components/AppRouter";
 import {BrowserRouter} from "react-router-dom";
-import MyNavbar from "./components/UI/navbar/MyNavbar";
+import Navbar from "./components/UI/navbar/Navbar";
 
 function App() {
     const [deck, setDeck] = useState({userId: 0, deckId: 0, title: "Default deck", cardsToLearn: 0, creationTime: Date.now(), lastModified: Date.now()})
@@ -12,7 +12,7 @@ function App() {
         <AccessTokenContext.Provider value={{accessToken, setAccessToken}}>
             <DeckContext.Provider value={{deck, setDeck}}>
                 <BrowserRouter>
-                    <MyNavbar/>
+                    <Navbar/>
                     <AppRouter/>
                 </BrowserRouter>
             </DeckContext.Provider>

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.navbar_common {
+    height: 50px;
+    width: 100%;
+    padding: 0 15px;
+    background: lightgray;
+}
+
+.navbar {
+    height: inherit;
+    width: inherit;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
