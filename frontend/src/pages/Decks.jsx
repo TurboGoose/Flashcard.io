@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import DeckList from "../components/decks/DeckList";
 import DeckService from "../API/DeckService";
-import MyModal from "../components/UI/modal/MyModal";
+import Modal from "../components/UI/modal/Modal";
 import CreateDeckForm from "../components/decks/CreateDeckForm";
-import MyButton from "../components/UI/button/MyButton";
+import Button from "../components/UI/button/Button";
 import UpdateDeckForm from "../components/decks/UpdateDeckForm";
 import {useFetching} from "../hooks/useFetching";
-import MyLoader from "../components/loader/MyLoader";
+import Loader from "../components/loader/Loader";
 import Wrapper from "../components/auth/Wrapper";
 import {useAuth0} from "@auth0/auth0-react";
 
@@ -66,17 +66,17 @@ const Decks = () => {
                 <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
                 }
                 {isLoading &&
-                <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><MyLoader/></div>
+                <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><Loader/></div>
                 }
                 {!error &&
                     <div>
-                        <MyModal visible={createModalVisible} setVisible={setCreateModalVisible}>
+                        <Modal visible={createModalVisible} setVisible={setCreateModalVisible}>
                             <CreateDeckForm createCallback={createDeckModal}/>
-                        </MyModal>
-                        <MyModal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
+                        </Modal>
+                        <Modal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
                             <UpdateDeckForm updateCallback={updateDeckModal} deck={curDeck}/>
-                        </MyModal>
-                        <MyButton onClick={() => setCreateModalVisible(true)}>Create deck</MyButton>
+                        </Modal>
+                        <Button onClick={() => setCreateModalVisible(true)}>Create deck</Button>
                         <DeckList
                             title={"Decks"}
                             decks={decks}

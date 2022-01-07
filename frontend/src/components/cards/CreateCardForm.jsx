@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import MyInput from "../UI/input/MyInput";
-import MyButton from "../UI/button/MyButton";
+import Input from "../UI/input/Input";
+import Button from "../UI/button/Button";
 
 const CreateCardForm = ({createCallback}) => {
     const [card, setCard] = useState({front: '', back: ''})
@@ -15,19 +15,19 @@ const CreateCardForm = ({createCallback}) => {
 
     return (
         <form>
-            <MyInput
+            <Input
                 type="text"
                 placeholder="Card front"
                 value={card.front}
                 onChange={event => setCard({...card, front : event.target.value})}
             />
-            <MyInput
+            <Input
                 type="text"
                 placeholder="Card back"
                 value={card.back}
                 onChange={event => setCard({...card, back: event.target.value})}
             />
-            <MyButton onClick={createCard}>Create card</MyButton>
+            <Button onClick={createCard}>Create card</Button>
         </form>
     );
 };

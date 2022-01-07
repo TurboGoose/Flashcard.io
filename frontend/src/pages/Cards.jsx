@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import MyModal from "../components/UI/modal/MyModal";
-import MyButton from "../components/UI/button/MyButton";
+import Modal from "../components/UI/modal/Modal";
+import Button from "../components/UI/button/Button";
 import CardService from "../API/CardService";
 import CreateCardForm from "../components/cards/CreateCardForm";
 import UpdateCardForm from "../components/cards/UpdateCardForm";
 import CardList from "../components/cards/CardList";
 import CardInfo from "../components/cards/CardInfo";
 import {useFetching} from "../hooks/useFetching";
-import MyLoader from "../components/loader/MyLoader";
+import Loader from "../components/loader/Loader";
 import {useAuth0} from "@auth0/auth0-react";
 import Wrapper from "../components/auth/Wrapper";
 
@@ -66,20 +66,20 @@ const Cards = () => {
                 <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
                 }
                 {isLoading &&
-                <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><MyLoader/></div>
+                <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><Loader/></div>
                 }
                 {!error &&
                 <div>
-                    <MyModal visible={createModalVisible} setVisible={setCreateModalVisible}>
+                    <Modal visible={createModalVisible} setVisible={setCreateModalVisible}>
                         <CreateCardForm createCallback={createCardModal}/>
-                    </MyModal>
-                    <MyModal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
+                    </Modal>
+                    <Modal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
                         <UpdateCardForm updateCallback={updateCardModal} card={curCard}/>
-                    </MyModal>
-                    <MyModal visible={browseModalVisible} setVisible={setBrowseModalVisible}>
+                    </Modal>
+                    <Modal visible={browseModalVisible} setVisible={setBrowseModalVisible}>
                         <CardInfo card={curCard} closeCallback={() => setBrowseModalVisible(false)}/>
-                    </MyModal>
-                    <MyButton onClick={() => setCreateModalVisible(true)}>Create card</MyButton>
+                    </Modal>
+                    <Button onClick={() => setCreateModalVisible(true)}>Create card</Button>
 
                     <CardList
                         title={"Cards"}

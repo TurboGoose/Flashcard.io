@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from "./MyInput.module.css";
+import classes from "./Input.module.css";
 
-const MyInput = props => {
+const Input = props => {
     return (
         <input className={classes.myInput} {...props}/>
     );
 };
 
-export default MyInput;
+export default Input;

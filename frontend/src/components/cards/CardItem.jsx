@@ -1,5 +1,5 @@
 import React from 'react';
-import MyButton from "../UI/button/MyButton";
+import Button from "../UI/button/Button";
 import '../../styles/App.css';
 
 const CardItem = ({card, browse, update, del}) => {
@@ -9,9 +9,9 @@ const CardItem = ({card, browse, update, del}) => {
                 <strong>{card.front}</strong>
             </div>
             <div className={"card__btns"}>
-                <MyButton onClick={() => browse(card)}>Browse</MyButton>
-                <MyButton onClick={() => update(card)}>Update</MyButton>
-                <MyButton onClick={() => del(card)}>Delete</MyButton>
+                <Button onClick={() => browse(card)}>Browse</Button>
+                <Button onClick={() => update(card)}>Update</Button>
+                <Button onClick={() => del(card)}>Delete</Button>
             </div>
         </div>
     );

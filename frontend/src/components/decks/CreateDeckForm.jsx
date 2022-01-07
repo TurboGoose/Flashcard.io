@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import MyInput from "../UI/input/MyInput";
-import MyButton from "../UI/button/MyButton";
+import Input from "../UI/input/Input";
+import Button from "../UI/button/Button";
 
 const CreateDeckForm = ({createCallback}) => {
     const [deck, setDeck] = useState({title: ''})
@@ -15,13 +15,13 @@ const CreateDeckForm = ({createCallback}) => {
 
     return (
         <form>
-            <MyInput
+            <Input
                 type="text"
                 placeholder="Deck title"
                 value={deck.title}
                 onChange={event => setDeck({...deck, title: event.target.value})}
             />
-            <MyButton onClick={createDeck}>Create deck</MyButton>
+            <Button onClick={createDeck}>Create deck</Button>
         </form>
     );
 };

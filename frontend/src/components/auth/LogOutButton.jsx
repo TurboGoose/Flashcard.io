@@ -1,7 +1,7 @@
 import React from "react";
 import {useAuth0} from "@auth0/auth0-react";
-import MyButton from "./UI/button/MyButton";
-import {frontendHost} from "../router/HostInfo";
+import Button from "../UI/button/Button";
+import {frontendHost} from "../../router/HostInfo";
 
 const LogoutButton = () => {
     const {logout, isAuthenticated} = useAuth0();
@@ -12,9 +12,9 @@ const LogoutButton = () => {
     }
 
     return isAuthenticated && (
-        <MyButton onClick={quit}>
+        <Button onClick={quit}>
             Log Out
-        </MyButton>
+        </Button>
     );
 };
 

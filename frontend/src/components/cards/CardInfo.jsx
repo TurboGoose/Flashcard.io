@@ -1,5 +1,5 @@
 import React from 'react';
-import MyButton from "../UI/button/MyButton";
+import Button from "../UI/button/Button";
 
 const CardInfo = ({closeCallback, card}) => {
 
@@ -15,7 +15,7 @@ const CardInfo = ({closeCallback, card}) => {
                 <br/>
                 {card.back}
             </div>
-            <MyButton onClick={closeWindow}>Close</MyButton>
+            <Button onClick={closeWindow}>Close</Button>
         </div>
     );
 };

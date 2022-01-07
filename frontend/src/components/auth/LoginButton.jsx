@@ -1,6 +1,6 @@
 import React from "react";
 import {useAuth0} from "@auth0/auth0-react";
-import MyButton from "./UI/button/MyButton";
+import Button from "../UI/button/Button";
 
 const LoginButton = () => {
     const {loginWithRedirect, isAuthenticated} = useAuth0();
@@ -11,9 +11,9 @@ const LoginButton = () => {
     }
 
     return !isAuthenticated && (
-        <MyButton onClick={login}>
+        <Button onClick={login}>
             Log In
-        </MyButton>
+        </Button>
     );
 };
 

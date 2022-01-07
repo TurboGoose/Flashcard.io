@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import MyInput from "../UI/input/MyInput";
-import MyButton from "../UI/button/MyButton";
+import Input from "../UI/input/Input";
+import Button from "../UI/button/Button";
 
 const UpdateDeckForm = ({updateCallback, deck}) => {
     const [updatedDeck, setUpdatedDeck] = useState(deck)
@@ -16,13 +16,13 @@ const UpdateDeckForm = ({updateCallback, deck}) => {
 
     return (
         <form>
-            <MyInput
+            <Input
                 type="text"
                 placeholder="New title"
                 value={updatedDeck.title}
                 onChange={event => setUpdatedDeck({...deck, title: event.target.value})}
             />
-            <MyButton onClick={updateDeck}>Update deck</MyButton>
+            <Button onClick={updateDeck}>Update deck</Button>
         </form>
     );
 };

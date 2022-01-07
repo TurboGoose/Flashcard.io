@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MySelect = ({options, value, defaultValue, onChange}) => {
+const Select = ({options, value, defaultValue, onChange}) => {
     return (
         <select value={value} onChange={event => onChange(event.target.value)}>
             <option disabled value="">{defaultValue}</option>
@@ -13,4 +13,4 @@ const MySelect = ({options, value, defaultValue, onChange}) => {
     );
 };
 
-export default MySelect;
+export default Select;

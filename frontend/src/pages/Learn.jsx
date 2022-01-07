@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
-import MyButton from "../components/UI/button/MyButton";
+import Button from "../components/UI/button/Button";
 import {useFetching} from "../hooks/useFetching";
 import LearningService from "../API/LearningService";
-import MyLoader from "../components/loader/MyLoader";
+import Loader from "../components/loader/Loader";
 import {useAuth0} from "@auth0/auth0-react";
 
 const Learn = () => {
@@ -52,7 +52,7 @@ const Learn = () => {
             <br/>
             <strong>{curCard.front}</strong>
             <br/>
-            <MyButton onClick={() => setIsAnswerShowing(true)}>Show answer</MyButton>
+            <Button onClick={() => setIsAnswerShowing(true)}>Show answer</Button>
             <br/>
             {isAnswerShowing &&
                 <div>
@@ -64,14 +64,14 @@ const Learn = () => {
                     <div>
                         <h2>Eval your quality of answer:</h2>
                         <br/>
-                        <MyButton onClick={factory(1)}>1</MyButton>
-                        <MyButton onClick={factory(2)}>2</MyButton>
-                        <MyButton onClick={factory(3)}>3</MyButton>
-                        <MyButton onClick={factory(4)}>4</MyButton>
-                        <MyButton onClick={factory(5)}>5</MyButton>
+                        <Button onClick={factory(1)}>1</Button>
+                        <Button onClick={factory(2)}>2</Button>
+                        <Button onClick={factory(3)}>3</Button>
+                        <Button onClick={factory(4)}>4</Button>
+                        <Button onClick={factory(5)}>5</Button>
                     </div>
                     {isLoading &&
-                    <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><MyLoader/></div>
+                    <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><Loader/></div>
                     }
                 </div>
             }
