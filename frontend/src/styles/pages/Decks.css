@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.deck_page {
+    width: 60%;
+    align-content: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.error {
+    text-align: center;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}

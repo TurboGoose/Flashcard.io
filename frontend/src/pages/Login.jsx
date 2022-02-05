@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginButton from "../components/auth/LoginButton";
-import "../styles/Login.css"
+import "../styles/pages/Login.css"
 
 const Login = () => {
     return (

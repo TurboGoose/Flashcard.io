@@ -2,8 +2,10 @@ import React from 'react';
 import classes from "./Button.module.css";
 
 const Button = ({children, ...props}) => {
+    const buttonClasses = props.className + " " + classes.myBtn
     return (
-        <button {...props} className={classes.myBtn}>
+
+        <button {...props} className={buttonClasses}>
             {children}
         </button>
     );

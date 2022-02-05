@@ -15,7 +15,7 @@ const DeckList = ({title, decks, learn, browse, update, del}) => {
 
     return (
         <div>
-            <h1 style={{textAlign: "center"}}>{title}</h1>
+            <h1 style={{textAlign: 'center'}}>{title}</h1>
             <div>
                 {decks.map(deck =>
                     <DeckItem
