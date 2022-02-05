@@ -3,7 +3,7 @@ import {useHistory, useParams} from "react-router-dom";
 import Button from "../components/UI/button/Button";
 import {useFetching} from "../hooks/useFetching";
 import LearningService from "../API/LearningService";
-import Loader from "../components/loader/Loader";
+import Loader from "../components/UI/loader/Loader";
 import {useAuth0} from "@auth0/auth0-react";
 
 const Learn = () => {

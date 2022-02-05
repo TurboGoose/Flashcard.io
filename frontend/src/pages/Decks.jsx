@@ -7,7 +7,7 @@ import CreateDeckForm from "../components/decks/CreateDeckForm";
 import Button from "../components/UI/button/Button";
 import UpdateDeckForm from "../components/decks/UpdateDeckForm";
 import {useFetching} from "../hooks/useFetching";
-import Loader from "../components/loader/Loader";
+import Loader from "../components/UI/loader/Loader";
 import Wrapper from "../components/auth/Wrapper";
 import {useAuth0} from "@auth0/auth0-react";
 import "../styles/pages/Decks.css"
@@ -16,11 +16,7 @@ const Decks = () => {
     const router = useHistory()
     const {isAuthenticated, getAccessTokenSilently} = useAuth0()
     const [accessToken, setAccessToken] = useState("")
-    const [decks, setDecks] = useState([
-        {deckId: 0, userId: 1, title: "deck 1", cardsToLearn: 1, creationTime: Date.now(), lastModified: Date.now()},
-        {deckId: 1, userId: 1, title: "deck 2", cardsToLearn: 2, creationTime: Date.now(), lastModified: Date.now()},
-        {deckId: 2, userId: 1, title: "deck 3", cardsToLearn: 3, creationTime: Date.now(), lastModified: Date.now()}
-    ])
+    const [decks, setDecks] = useState([])
     const [curDeck, setCurDeck] = useState({deckId: 0, userId: 0, title: "", cadsToLearn: 0, creationTime: Date.now(), lastModified: Date.now()})
     const [createModalVisible, setCreateModalVisible] = useState(false)
     const [updateModalVisible, setUpdateModalVisible] = useState(false)
@@ -36,32 +32,30 @@ const Decks = () => {
     })
 
     useEffect(() => {
-        // fetch()
+        fetch()
     }, [])
 
     const browseDeck = deck => {
-        // router.push(`decks/${deck.deckId}/cards`)
+        router.push(`decks/${deck.deckId}/cards`)
     }
     const learnDeck = deck => {
-        // router.push(`decks/${deck.deckId}/learn`)
+        router.push(`decks/${deck.deckId}/learn`)
     }
     const updateDeck = deck => {
         setCurDeck(deck)
         setUpdateModalVisible(true)
     }
     const deleteDeck = deck => {
-        // DeckService.deleteDeck(accessToken, deck.deckId)
+        DeckService.deleteDeck(accessToken, deck.deckId)
         setDecks(decks.filter(d => d.deckId !== deck.deckId))
     }
     const createDeckModal = async deck => {
-        // const newDeck = await DeckService.createDeck(accessToken, deck)
-        const newDeck = deck
+        const newDeck = await DeckService.createDeck(accessToken, deck)
         setDecks([...decks, newDeck])
         setCreateModalVisible(false)
     }
     const updateDeckModal = async deck => {
-        // const newDeck = await DeckService.updateDeck(accessToken, deck.deckId, deck)
-        const newDeck = deck
+        const newDeck = await DeckService.updateDeck(accessToken, deck.deckId, deck)
         setDecks(decks.map(d => d.deckId === newDeck.deckId ? newDeck : d))
         setUpdateModalVisible(false)
     }

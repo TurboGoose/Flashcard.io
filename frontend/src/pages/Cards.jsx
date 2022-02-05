@@ -8,7 +8,7 @@ import UpdateCardForm from "../components/cards/UpdateCardForm";
 import CardList from "../components/cards/CardList";
 import CardInfo from "../components/cards/CardInfo";
 import {useFetching} from "../hooks/useFetching";
-import Loader from "../components/loader/Loader";
+import Loader from "../components/UI/loader/Loader";
 import {useAuth0} from "@auth0/auth0-react";
 import Wrapper from "../components/auth/Wrapper";
 
