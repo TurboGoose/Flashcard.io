@@ -1,23 +1,23 @@
-/*.card_item {*/
-/*    padding: 15px;*/
-/*    border: 2px solid teal;*/
-/*    margin-top: 15px;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    font-family: 'Roboto', sans-serif;*/
-/*}*/
+.card_item {
+    padding: 15px;
+    border: 2px solid teal;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
 
-/*.front {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: start;*/
-/*    flex-grow: 1;*/
-/*    font-size: larger;*/
-/*    word-break: break-all;*/
-/*}*/
+.front {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex-grow: 1;
+    font-size: larger;
+    word-break: break-all;
+}
 
-/*.card_buttons {*/
-/*    display: flex;*/
-/*    justify-content: end;*/
-/*    margin-left: 10px;*/
-/*}*/
+.card_buttons {
+    display: flex;
+    justify-content: end;
+    margin-left: 10px;
+}

@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 .deck_page {
     width: 60%;
     align-content: center;
-    font-family: 'Roboto', sans-serif;
 }
 
 .error {

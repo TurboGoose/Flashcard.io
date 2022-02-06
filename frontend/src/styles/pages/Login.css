@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 .login {
     display: flex;
     flex-direction: column;
-    font-family: 'Roboto', sans-serif;
 }
 
 .login h1 {

@@ -78,10 +78,10 @@ const Decks = () => {
                         {!isLoading &&
                             <div>
                                 <Modal visible={createModalVisible} setVisible={setCreateModalVisible}>
-                                    <CreateDeckForm createCallback={createDeckModal}/>
+                                    <CreateDeckForm reset={!createModalVisible} createCallback={createDeckModal}/>
                                 </Modal>
                                 <Modal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
-                                    <UpdateDeckForm updateCallback={updateDeckModal} deck={curDeck}/>
+                                    <UpdateDeckForm reset={!updateModalVisible} updateCallback={updateDeckModal} deck={curDeck}/>
                                 </Modal>
                                 <Button onClick={() => setCreateModalVisible(true)}>Create deck</Button>
                                 <DeckList

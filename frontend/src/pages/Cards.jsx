@@ -78,10 +78,10 @@ const Cards = () => {
                         {!isLoading &&
                             <div>
                                 <Modal visible={createModalVisible} setVisible={setCreateModalVisible}>
-                                    <CreateCardForm createCallback={createCardModal}/>
+                                    <CreateCardForm reset={!createModalVisible} createCallback={createCardModal}/>
                                 </Modal>
                                 <Modal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
-                                    <UpdateCardForm updateCallback={updateCardModal} card={curCard}/>
+                                    <UpdateCardForm reset={!updateModalVisible} updateCallback={updateCardModal} card={curCard}/>
                                 </Modal>
                                 <Modal visible={browseModalVisible} setVisible={setBrowseModalVisible}>
                                     <CardInfo card={curCard} closeCallback={() => setBrowseModalVisible(false)}/>

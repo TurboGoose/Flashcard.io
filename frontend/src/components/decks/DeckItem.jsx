@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from "../UI/button/Button";
-import '../../styles/pages/components/decks/DeckItem.css';
+import '../../styles/components/decks/DeckItem.css';
 
 const DeckItem = ({deck, learn, browse, update, del}) => {
     return (

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
+import TextArea from "../UI/textarea/TextArea";
 
-const UpdateCardForm = ({updateCallback, card}) => {
+const UpdateCardForm = ({updateCallback, card, reset}) => {
     const [updatedCard, setUpdatedCard] = useState(card)
-    useEffect(() => setUpdatedCard(card), [card])
+    useEffect(() => setUpdatedCard(card), [card, reset])
 
     const updateCard = (event) => {
         event.preventDefault()
@@ -16,15 +16,15 @@ const UpdateCardForm = ({updateCallback, card}) => {
 
     return (
         <form>
-            <Input
-                type="text"
-                placeholder="Card front"
+            <TextArea
+                placeholder="Front side"
+                rows="5"
                 value={updatedCard.front}
                 onChange={event => setUpdatedCard({...card, front: event.target.value, back: updatedCard.back})}
             />
-            <Input
-                type="text"
-                placeholder="Card back"
+            <TextArea
+                placeholder="Back side"
+                rows="5"
                 value={updatedCard.back}
                 onChange={event => setUpdatedCard({...updatedCard, front: updatedCard.front, back: event.target.value})}
             />

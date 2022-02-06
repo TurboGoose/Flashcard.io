@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 
-const UpdateDeckForm = ({updateCallback, deck}) => {
+const UpdateDeckForm = ({updateCallback, deck, reset}) => {
     const [updatedDeck, setUpdatedDeck] = useState(deck)
-    useEffect(() => setUpdatedDeck(deck), [deck])
+    useEffect(() => setUpdatedDeck(deck), [deck, reset])
 
     const updateDeck = (event) => {
         event.preventDefault()

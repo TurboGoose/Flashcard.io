@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Input from "../UI/input/Input";
 import Button from "../UI/button/Button";
 
-const CreateDeckForm = ({createCallback}) => {
+const CreateDeckForm = ({createCallback, reset}) => {
     const [deck, setDeck] = useState({title: ''})
+    useEffect(() => setDeck({title: ''}), [reset])
 
     const createDeck = (event) => {
         event.preventDefault()
