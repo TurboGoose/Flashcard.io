@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.deck_item {
+    padding: 15px;
+    border: 2px solid teal;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.title {
+    font-size: larger;
+    word-break: break-all;
+}
+
+.info_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex-grow: 1;
+}
+
+.deck_buttons {
+    display: flex;
+    justify-content: end;
+    margin-left: 10px;
+}
+
+.cards_to_learn_count {
+    color: grey;
+    margin-top: 5px;
+    border-top: grey solid 2px;
+    padding-top: 5px;
+    font-size: smaller;
+}

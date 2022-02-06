@@ -11,6 +11,7 @@ import {useFetching} from "../hooks/useFetching";
 import Loader from "../components/UI/loader/Loader";
 import {useAuth0} from "@auth0/auth0-react";
 import Wrapper from "../components/auth/Wrapper";
+import "../styles/pages/Cards.css"
 
 const Cards = () => {
     const {isAuthenticated, getAccessTokenSilently} = useAuth0()
@@ -60,35 +61,42 @@ const Cards = () => {
     }
 
     return (
-        <div>
+        <div className="card_page">
             <Wrapper>
                 {error &&
-                <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
-                }
-                {isLoading &&
-                <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><Loader/></div>
+                    <div className="error">
+                        <h1>An error occurred</h1>
+                    </div>
                 }
                 {!error &&
-                <div>
-                    <Modal visible={createModalVisible} setVisible={setCreateModalVisible}>
-                        <CreateCardForm createCallback={createCardModal}/>
-                    </Modal>
-                    <Modal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
-                        <UpdateCardForm updateCallback={updateCardModal} card={curCard}/>
-                    </Modal>
-                    <Modal visible={browseModalVisible} setVisible={setBrowseModalVisible}>
-                        <CardInfo card={curCard} closeCallback={() => setBrowseModalVisible(false)}/>
-                    </Modal>
-                    <Button onClick={() => setCreateModalVisible(true)}>Create card</Button>
-
-                    <CardList
-                        title={"Cards"}
-                        cards={cards}
-                        browse={browseCard}
-                        update={updateCard}
-                        del={deleteCard}
-                    />
-                </div>
+                    <div>
+                        {isLoading &&
+                            <div className="loader">
+                                <Loader/>
+                            </div>
+                        }
+                        {!isLoading &&
+                            <div>
+                                <Modal visible={createModalVisible} setVisible={setCreateModalVisible}>
+                                    <CreateCardForm createCallback={createCardModal}/>
+                                </Modal>
+                                <Modal visible={updateModalVisible} setVisible={setUpdateModalVisible}>
+                                    <UpdateCardForm updateCallback={updateCardModal} card={curCard}/>
+                                </Modal>
+                                <Modal visible={browseModalVisible} setVisible={setBrowseModalVisible}>
+                                    <CardInfo card={curCard} closeCallback={() => setBrowseModalVisible(false)}/>
+                                </Modal>
+                                <Button onClick={() => setCreateModalVisible(true)}>Create card</Button>
+                                <CardList
+                                    title={"Cards"}
+                                    cards={cards}
+                                    browse={browseCard}
+                                    update={updateCard}
+                                    del={deleteCard}
+                                />
+                            </div>
+                        }
+                    </div>
                 }
             </Wrapper>
         </div>

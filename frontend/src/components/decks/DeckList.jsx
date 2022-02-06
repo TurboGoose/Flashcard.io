@@ -1,12 +1,13 @@
 import React from 'react';
 import DeckItem from "./DeckItem";
+import "../../styles/components/decks/DeckList.css"
 
 const DeckList = ({title, decks, learn, browse, update, del}) => {
 
     if (!decks.length) {
         return (
             <div>
-                <h1 style={{textAlign: 'center'}}>
+                <h1>
                     No decks created yet
                 </h1>
             </div>
@@ -15,7 +16,7 @@ const DeckList = ({title, decks, learn, browse, update, del}) => {
 
     return (
         <div>
-            <h1 style={{textAlign: 'center'}}>{title}</h1>
+            <h1>{title}</h1>
             <div>
                 {decks.map(deck =>
                     <DeckItem
