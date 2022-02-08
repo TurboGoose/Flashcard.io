@@ -5,6 +5,8 @@ import {useFetching} from "../hooks/useFetching";
 import LearningService from "../API/LearningService";
 import Loader from "../components/UI/loader/Loader";
 import {useAuth0} from "@auth0/auth0-react";
+import Wrapper from "../components/auth/Wrapper";
+import "../styles/pages/Learn.css"
 
 const Learn = () => {
     const router = useHistory()
@@ -47,35 +49,60 @@ const Learn = () => {
     }
 
     return (
-        <div>
-            <h1>Cards left to learn: {cards.length - index + 1}</h1>
-            <br/>
-            <strong>{curCard.front}</strong>
-            <br/>
-            <Button onClick={() => setIsAnswerShowing(true)}>Show answer</Button>
-            <br/>
-            {isAnswerShowing &&
-                <div>
-                    {error &&
-                    <h1 style={{justifyContent: "center"}}>Error occurred: {error}</h1>
-                    }
-                    <div>{curCard.back}</div>
-                    <br/>
-                    <div>
-                        <h2>Eval your quality of answer:</h2>
-                        <br/>
-                        <Button onClick={factory(1)}>1</Button>
-                        <Button onClick={factory(2)}>2</Button>
-                        <Button onClick={factory(3)}>3</Button>
-                        <Button onClick={factory(4)}>4</Button>
-                        <Button onClick={factory(5)}>5</Button>
+        <div className="learn_page">
+            <Wrapper>
+                {error &&
+                    <div className="error">
+                        <h1>An error occurred</h1>
                     </div>
-                    {isLoading &&
-                    <div style={{display: "flex", justifyContent: "center", marginTop: 50}}><Loader/></div>
-                    }
-                </div>
-            }
-
+                }
+                {!error &&
+                    <div>
+                        {isLoading &&
+                            <div className="loader">
+                                <Loader/>
+                            </div>
+                        }
+                        {!isLoading &&
+                            <div>
+                                <div className="cards_left_to_learn">
+                                    Cards left to learn: {cards.length - index + 1}
+                                </div>
+                                <div className="question_area">
+                                    <div>
+                                        <div className="learning_card_front">
+                                            <h2>{curCard.front}</h2>
+                                        </div>
+                                        {!isAnswerShowing &&
+                                            <div className="show_answer_button">
+                                                <Button onClick={() => setIsAnswerShowing(true)}>Show answer</Button>
+                                            </div>
+                                        }
+                                    </div>
+                                    {isAnswerShowing &&
+                                        <div className="answer_area">
+                                            <hr className="break_line"/>
+                                            <div className="learning_card_back">
+                                                {curCard.back}
+                                            </div>
+                                            <div className="quality">
+                                                <h4>Evaluate your quality of answer:</h4>
+                                                <div>
+                                                    <Button onClick={factory(1)}>1</Button>
+                                                    <Button onClick={factory(2)}>2</Button>
+                                                    <Button onClick={factory(3)}>3</Button>
+                                                    <Button onClick={factory(4)}>4</Button>
+                                                    <Button onClick={factory(5)}>5</Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </Wrapper>
         </div>
     );
 };

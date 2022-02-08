@@ -12,4 +12,5 @@
 
 .back {
     margin: 12px 0;
+    word-break: break-all;
 }
