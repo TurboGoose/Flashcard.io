@@ -5,8 +5,13 @@ import '../../styles/components/cards/CardItem.css';
 const CardItem = ({card, browse, update, del}) => {
     return (
         <div className="card_item">
-            <div className="front">
-                <strong>{card.front}</strong>
+            <div className="card_info">
+                <div className="card_front">
+                    <strong>{card.front}</strong>
+                </div>
+                <div className="card_back">
+                    {card.back}
+                </div>
             </div>
             <div className="card_buttons">
                 <Button onClick={() => browse(card)}>Browse</Button>

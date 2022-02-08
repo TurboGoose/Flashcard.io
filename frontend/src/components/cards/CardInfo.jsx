@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from "../UI/button/Button";
+import "../../styles/components/cards/CardInfo.css"
 
 const CardInfo = ({closeCallback, card}) => {
 
@@ -9,10 +10,11 @@ const CardInfo = ({closeCallback, card}) => {
     }
 
     return (
-        <div>
-            <div>
-                <strong>{card.front}</strong>
-                <br/>
+        <div className="info">
+            <div className="front">
+                <h3>{card.front}</h3>
+            </div>
+            <div className="back">
                 {card.back}
             </div>
             <Button onClick={closeWindow}>Close</Button>

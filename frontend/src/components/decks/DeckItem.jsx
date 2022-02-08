@@ -5,7 +5,7 @@ import '../../styles/components/decks/DeckItem.css';
 const DeckItem = ({deck, learn, browse, update, del}) => {
     return (
         <div className="deck_item">
-            <div className="info_block">
+            <div className="deck_info">
                 <div className="title">
                     <strong>{deck.title}</strong>
                 </div>

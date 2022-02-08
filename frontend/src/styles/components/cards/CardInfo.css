@@ -1,0 +1,15 @@
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+}
+
+.front {
+    padding-bottom: 10px;
+    border-bottom: grey solid 2px;
+    word-break: break-all;
+}
+
+.back {
+    margin: 12px 0;
+}

@@ -4,16 +4,30 @@
     margin-top: 15px;
     display: flex;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
 }
 
-.front {
+.card_info {
     display: flex;
     flex-direction: column;
     justify-content: start;
     flex-grow: 1;
+    max-width: 70%;
+}
+
+.card_front {
     font-size: larger;
     word-break: break-all;
+}
+
+.card_info .card_back {
+    color: grey;
+    margin-top: 5px;
+    border-top: grey solid 2px;
+    padding-top: 5px;
+    font-size: smaller;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card_buttons {
